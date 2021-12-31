@@ -25,11 +25,14 @@ class MelLoader(torch.utils.data.Dataset):
 
 
 class MelCollate():
+    def __init__(self, input_channels):
+        self.input_channels = input_channels
+
     def __call__(self, batch):
         """ batch = [mel_inferred_resized, mel_original_resized] """
 
-        mel_in = torch.cuda.FloatTensor(len(batch), 1, batch[0][0].size(0), batch[0][0].size(1))
-        mel_out = torch.cuda.FloatTensor(len(batch), 1, batch[0][0].size(0), batch[0][0].size(1))
+        mel_in = torch.cuda.FloatTensor(len(batch), self.input_channels, batch[0][0].size(0), batch[0][0].size(1))
+        mel_out = torch.cuda.FloatTensor(len(batch), self.input_channels, batch[0][0].size(0), batch[0][0].size(1))
         for i in range(len(batch)):
             mel_in[i] = batch[i][0]
             mel_out[i] = batch[i][1]
