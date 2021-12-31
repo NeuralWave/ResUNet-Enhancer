@@ -21,7 +21,7 @@ def init_distributed(hparams, rank):
 def prepare_dataloaders(hparams):
     trainset = MelLoader(hparams.train_inputs_path, hparams.train_targets_path, hparams.train_identity)
     valset = MelLoader(hparams.test_inputs_path, hparams.test_targets_path, hparams.train_identity)
-    collate_fn = MelCollate()
+    collate_fn = MelCollate(hparams.input_channels)
 
     train_loader = DataLoader(trainset, 
                               shuffle=True,
