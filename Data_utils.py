@@ -31,7 +31,7 @@ class MelCollate():
         mel_in = torch.cuda.FloatTensor(len(batch), 1, batch[0][0].size(0), batch[0][0].size(1))
         mel_out = torch.cuda.FloatTensor(len(batch), 1, batch[0][0].size(0), batch[0][0].size(1))
         for i in range(len(batch)):
-            mel_in[i] = (batch[i][0] + 5.0) / 10.0
-            mel_out[i] = (batch[i][1] + 5.0) / 10.0
+            mel_in[i] = batch[i][0]
+            mel_out[i] = batch[i][1]
 
         return mel_in, mel_out
